@@ -27,12 +27,10 @@ promoGenre.textContent = 'драма';
 
 promoBg.style.backgroundImage = 'url("img/bg.jpg")';
 
-promoList.innerHTML = '';
 
-movieDB.movies.sort();
 
-console.log(movieDB.movies);
 function createFilms() {
+    promoList.innerHTML = '';
     movieDB.movies.sort();
     movieDB.movies.forEach((item, i) => {
         promoList.innerHTML += `
@@ -41,10 +39,22 @@ function createFilms() {
         </li>
         `;
     });
+
+    document.querySelectorAll('.delete').forEach((item,i) => {
+        item.addEventListener('click', (e)=> {
+            item.parentElement.remove();
+            movieDB.movies.splice(i, 1);
+
+            movieDB.movies.sort();
+            createFilms();
+        })
+        
+    });
+
     
 }
 
-formFilm.addEventListener('click', (e)=> {
+formFilm.addEventListener('submit', (e)=> {
     e.preventDefault();
 
     if (inputFilm.value.length > 21) {
@@ -67,6 +77,8 @@ formFilm.addEventListener('click', (e)=> {
 });
 
 createFilms();
+
+
 });
 
 
